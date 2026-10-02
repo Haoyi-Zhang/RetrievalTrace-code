@@ -1,0 +1,166 @@
+{
+  "scope": "Finite static shared-world relational semantics; generated validation only",
+  "two_bit_grid": {
+    "bits": 2,
+    "initial_masks": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "outcome_atoms": "success/failure f times additions 0..3",
+    "signatures": "all 255 nonempty subsets of eight atoms",
+    "feedback_tables": "all 81 tables over entries 1,2,3",
+    "horizons": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "contracts": 82620,
+    "costs": "Fixed basis vectors [1,0] and [0,1]; zero-cost cases are separate unit tests"
+  },
+  "cutoff": {
+    "cutoffs": [
+      1,
+      2,
+      3
+    ],
+    "adjacent_and_larger_horizons": [
+      2,
+      3,
+      4,
+      5
+    ],
+    "hypotheses": [
+      "adjacent equivalence",
+      "deterministic feedback and K+1 retrieval outcomes suffice for rejection",
+      "rank bound",
+      "distance exactness"
+    ],
+    "negative_controls": [
+      "three-atom exhaustion-evidence erasure: H=2 versus K=1 passes only after projection, while H=3 versus K=1 fails",
+      "forged distance parent",
+      "missing universal world row",
+      "negative costs",
+      "wrong horizon/cutoff binding",
+      "Boolean and floating-point aliases in serialized positive-world metadata are malformed"
+    ]
+  },
+  "support": {
+    "keys": 2,
+    "outcomes_per_key": 2,
+    "supports": 16,
+    "candidate_families": 65536,
+    "direct_comparisons": 1048576,
+    "actual_cover_checks": 4128,
+    "selection": "258 evenly spaced families per support: range(0,65536,255), including both endpoints; exact generator authoritative",
+    "cover_split_mutations": {
+      "missing_child": "remove one child from a real binary coverage split; replay must reject",
+      "duplicated_child": "replace the second branch by a duplicate of the first while retaining arity; replay must reject"
+    }
+  },
+  "graphs": {
+    "grammar": "all call-depth-at-most-two trees with two binary keys and two return labels",
+    "programs": 202,
+    "ordered_pairs": 40804,
+    "worlds": 9
+  },
+  "larger": [
+    {
+      "family": "boolean",
+      "seed": 271828,
+      "cases": 384
+    },
+    {
+      "family": "relational",
+      "seed": 271829,
+      "cases": 192
+    },
+    {
+      "family": "cutoff",
+      "seed": 271830,
+      "cases": 240
+    }
+  ],
+  "larger_selection": "Exact included generator; fixed before execution; not held-out real applications. All selected cases and worlds retained.",
+  "scaling": {
+    "explicit_horizons": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "binary_exponents": [
+      1,
+      2,
+      4,
+      8,
+      12,
+      16,
+      24,
+      32,
+      48,
+      60
+    ],
+    "distance_horizon": "max(3,2**exponent)",
+    "methods": [
+      "explicit graph census",
+      "collapse",
+      "distance"
+    ],
+    "interpretation": "representation size, not execution speed",
+    "worst_cost_oracle": {
+      "horizon": 4,
+      "cost_vectors": {
+        "query": [
+          2,
+          1,
+          0
+        ],
+        "feedback": [
+          1,
+          0,
+          3
+        ]
+      },
+      "branches": [
+        "continuing success",
+        "success with no continuing singleton",
+        "all enabled outcomes fail"
+      ],
+      "comparison": "enumerate terminal operational traces; compare the attained componentwise maximum with Theorem 5.7"
+    },
+    "binary_record_interpretation": "worst_formula is symbolic arithmetic; the separate three-branch oracle is the executed cost comparison"
+  },
+  "resources": {
+    "workers": 1,
+    "address_space_limit_mib": 3500,
+    "child_cpu_seconds": 2700,
+    "child_wall_seconds": 2700,
+    "campaign_cpu_ceiling_seconds": 28800,
+    "repair_reserve_fraction": 0.25,
+    "max_paths_per_program": 100000,
+    "max_cover_nodes_per_challenge": 200000,
+    "max_worlds": 200000,
+    "max_distance_cells": 2000000
+  },
+  "failure_policy": "Mismatch stops comparison; malformed is not invalid; UNKNOWN has no semantic conclusion; no favorable-result filtering.",
+  "generator": "experiments/campaign.py",
+  "adapter_boundaries": {
+    "target_horizon": "strict non-Boolean integer in 1..H, checked before state construction",
+    "module_boundary": "bits=4 admits 17 nominal modules; bits=5 requires 33 and returns UNKNOWN",
+    "retrieval_outcome_boundary": "32 outcomes admitted; 33 returns UNKNOWN without deleting branches",
+    "node_boundary": "a fixed exact expansion has five nodes; a test-only ceiling of 5 admits it and a test-only ceiling of 4 returns UNKNOWN, exercising the construction off-by-one without claiming a natural 1000-node fixture",
+    "semantic_preservation": "no nominal feedback key is merged and no feedback or retrieval branch is removed"
+  }
+}
